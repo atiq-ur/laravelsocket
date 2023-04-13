@@ -1,9 +1,13 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
+import { ref } from "vue";
+
+const msg = ref("");
 
 Echo.channel("trades").listen("NewTrade", (e) => {
     console.log(e.trade);
+    msg.value = e.trade;
 });
 </script>
 
@@ -41,7 +45,9 @@ Echo.channel("trades").listen("NewTrade", (e) => {
                                     <h3 class="font-bold text-3xl">
                                         <p>
                                             Name:
-                                            <span id="latest_trade_user"></span>
+                                            <span id="latest_trade_user">
+                                                {{ msg }}</span
+                                            >
                                         </p>
                                     </h3>
                                 </div>
